@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+    <mapping path="/admin/*" decorator="admin-layout.jsp"/>
+    <mapping path="/*" decorator="user-layout.jsp"/>
+
+    <mapping path="/login" exclude="true"/>
+    <mapping path="/register" exclude="true"/>
+    <mapping path="/forgot-password" exclude="true"/>
+    <mapping path="/verify-otp" exclude="true"/>
+    <mapping path="/verify-reset-otp" exclude="true"/>
+    <mapping path="/reset-password" exclude="true"/>
+
+    <mapping path="/image/*" exclude="true"/>
+    <mapping path="*.css" exclude="true"/>
+    <mapping path="*.js" exclude="true"/>
+    <mapping path="*.png" exclude="true"/>
+    <mapping path="*.jpg" exclude="true"/>
+    <mapping path="*.gif" exclude="true"/>
+</sitemesh>
