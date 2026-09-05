@@ -34,7 +34,7 @@
                 <form action="${pageContext.request.contextPath}/verify-otp" method="post">
                     <div class="mb-3">
                         <input type="text" name="otpCode" class="form-control otp-input"
-                               placeholder="------" maxlength="6" required autocomplete="off" autofocus>
+                               placeholder="------" maxlength="6" pattern="[0-9]{6}" required autocomplete="off" autofocus>
                     </div>
 
                     <button type="submit" class="btn btn-success w-100">Xác nhận</button>

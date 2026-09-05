@@ -56,8 +56,30 @@ public class ProfileController extends HttpServlet {
         String fullname = req.getParameter("fullname");
         String phone = req.getParameter("phone");
 
-        account.setFullname(fullname);
-        account.setPhone(phone);
+        // Server-side validation
+        if (fullname == null || fullname.trim().isEmpty()) {
+            req.setAttribute(Constant.SESSION_MESS, "Họ tên không được để trống!");
+            req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);
+            return;
+        }
+        if (fullname.trim().length() < 2) {
+            req.setAttribute(Constant.SESSION_MESS, "Họ tên phải có ít nhất 2 ký tự!");
+            req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);
+            return;
+        }
+        if (phone == null || phone.trim().isEmpty()) {
+            req.setAttribute(Constant.SESSION_MESS, "Số điện thoại không được để trống!");
+            req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);
+            return;
+        }
+        if (!phone.matches("[0-9]{10,11}")) {
+            req.setAttribute(Constant.SESSION_MESS, "Số điện thoại phải có 10-11 chữ số!");
+            req.getRequestDispatcher("/views/profile.jsp").forward(req, resp);
+            return;
+        }
+
+        account.setFullname(fullname.trim());
+        account.setPhone(phone.trim());
 
         // Xử lý upload ảnh
         try {

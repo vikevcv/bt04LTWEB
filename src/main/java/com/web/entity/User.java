@@ -2,7 +2,11 @@ package com.web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -21,12 +25,17 @@ public class User implements Serializable {
 
     @Column(name = "Password", columnDefinition = "varchar(255) not null")
     @NotEmpty(message = "Mật khẩu không được rỗng")
+    @Size(min = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
     private String password;
 
     @Column(name = "Email", columnDefinition = "varchar(100) unique")
+    @NotBlank(message = "Email không được để trống")
+    @Email(message = "Email không đúng định dạng")
     private String email;
 
     @Column(name = "FullName", columnDefinition = "nvarchar(100)")
+    @NotBlank(message = "Họ tên không được để trống")
+    @Size(min = 2, max = 100, message = "Họ tên phải từ 2-100 ký tự")
     private String fullname;
 
     @Column(name = "Role")
@@ -36,6 +45,7 @@ public class User implements Serializable {
     private int status; // 1: Hoạt động, 0: Khóa
 
     @Column(name = "Phone", columnDefinition = "varchar(20)")
+    @Pattern(regexp = "[0-9]{10,11}", message = "Số điện thoại phải có 10-11 chữ số")
     private String phone;
 
     @Column(name = "Images", columnDefinition = "nvarchar(500)")

@@ -74,12 +74,12 @@
             <form action="${pageContext.request.contextPath}/profile" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="fullname" class="form-label">Họ và tên</label>
-                    <input type="text" class="form-control" id="fullname" name="fullname" value="${sessionScope.account.fullname}" placeholder="Nhập họ và tên">
+                    <input type="text" class="form-control" id="fullname" name="fullname" value="${sessionScope.account.fullname}" placeholder="Nhập họ và tên" required minlength="2">
                 </div>
 
                 <div class="mb-3">
                     <label for="phone" class="form-label">Số điện thoại</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" value="${sessionScope.account.phone}" placeholder="Nhập số điện thoại">
+                    <input type="tel" class="form-control" id="phone" name="phone" value="${sessionScope.account.phone}" placeholder="Nhập số điện thoại" required pattern="[0-9]{10,11}">
                 </div>
 
                 <div class="mb-3">

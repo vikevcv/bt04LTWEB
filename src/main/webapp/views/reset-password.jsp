@@ -22,12 +22,12 @@
                 <form action="${pageContext.request.contextPath}/reset-password" method="post">
                     <div class="mb-3">
                         <label for="newPassword" class="form-label">Mật khẩu mới</label>
-                        <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Nhập mật khẩu mới" required autofocus>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Nhập mật khẩu mới" required minlength="6" autofocus>
                     </div>
 
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu mới" required>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu mới" required minlength="6">
                     </div>
 
                     <button type="submit" class="btn btn-success w-100">Đặt lại mật khẩu</button>

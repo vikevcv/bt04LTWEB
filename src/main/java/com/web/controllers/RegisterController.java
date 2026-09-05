@@ -35,6 +35,43 @@ public class RegisterController extends HttpServlet {
         String fullname = req.getParameter("fullname");
         String email = req.getParameter("email");
 
+        // Server-side validation
+        if (username == null || username.trim().isEmpty()) {
+            req.setAttribute(Constant.SESSION_MESS, "Tên đăng nhập không được để trống!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+        if (password == null || password.trim().isEmpty()) {
+            req.setAttribute(Constant.SESSION_MESS, "Mật khẩu không được để trống!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+        if (password.length() < 6) {
+            req.setAttribute(Constant.SESSION_MESS, "Mật khẩu phải có ít nhất 6 ký tự!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+        if (fullname == null || fullname.trim().isEmpty()) {
+            req.setAttribute(Constant.SESSION_MESS, "Họ tên không được để trống!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+        if (fullname.trim().length() < 2) {
+            req.setAttribute(Constant.SESSION_MESS, "Họ tên phải có ít nhất 2 ký tự!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+        if (email == null || email.trim().isEmpty()) {
+            req.setAttribute(Constant.SESSION_MESS, "Email không được để trống!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            req.setAttribute(Constant.SESSION_MESS, "Email không đúng định dạng!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+
         if (userService.checkExistUsername(username)) {
             req.setAttribute(Constant.SESSION_MESS, "Tên đăng nhập đã tồn tại!");
             req.getRequestDispatcher("/views/register.jsp").forward(req, resp);

@@ -67,6 +67,13 @@ public class ResetPasswordController extends HttpServlet {
             return;
         }
 
+        if (newPassword.length() < 6) {
+            req.setAttribute("email", email);
+            req.setAttribute(Constant.SESSION_MESS, "Mật khẩu phải có ít nhất 6 ký tự!");
+            req.getRequestDispatcher("/views/reset-password.jsp").forward(req, resp);
+            return;
+        }
+
         if (!newPassword.equals(confirmPassword)) {
             req.setAttribute("email", email);
             req.setAttribute(Constant.SESSION_MESS, "Mật khẩu xác nhận không khớp!");
