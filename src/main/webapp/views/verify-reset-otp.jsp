@@ -4,61 +4,56 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xác thực OTP</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .countdown-text { text-align:center; color:#888; font-size:14px; margin-top:16px; }
-        .countdown-text b { color:#0d6efd; }
-        .btn-resend { display:inline-block; margin-top:12px; padding:10px 20px;
-                      background:#6c757d; color:#fff; border:none; border-radius:8px;
-                      font-size:14px; font-weight:600; cursor:pointer; width:100%; }
-        .btn-resend:hover { background:#5a6268; }
-        .btn-resend:disabled { background:#c0c0c0; cursor:not-allowed; }
-        .otp-email-hint { text-align:center; color:#555; margin-bottom:20px; font-size:14px; }
-        .otp-email-hint b { color:#0d6efd; }
+        .otp-input { letter-spacing: 12px; text-align: center; font-size: 24px; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="auth-wrapper">
-        <div class="auth-card">
-            <h2>Xác thực OTP</h2>
-            <p class="subtitle">Nhập mã OTP đã gửi về email</p>
+    <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+        <div class="card shadow-sm" style="width:400px;">
+            <div class="card-body p-4">
+                <h2 class="card-title text-center mb-2">Xác thực OTP</h2>
+                <p class="text-center text-muted mb-4">Nhập mã OTP đã gửi về email</p>
 
-            <c:if test="${not empty mess}">
-                <c:choose>
-                    <c:when test="${mess.contains('thành công') || mess.contains('đã được gửi')}">
-                        <div class="alert alert-success">${mess}</div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="alert alert-danger">${mess}</div>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
+                <c:if test="${not empty mess}">
+                    <c:choose>
+                        <c:when test="${mess.contains('thành công') || mess.contains('đã được gửi')}">
+                            <div class="alert alert-success">${mess}</div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="alert alert-danger">${mess}</div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
 
-            <p class="otp-email-hint">Mã OTP đã được gửi đến<br><b>${email}</b></p>
+                <p class="text-center text-muted mb-3">Mã OTP đã được gửi đến<br><b>${email}</b></p>
 
-            <form action="${pageContext.request.contextPath}/verify-reset-otp" method="post">
-                <input type="hidden" name="action" value="verify">
-                <div class="form-group">
-                    <input type="text" name="otpCode" class="otp-input"
-                           placeholder="------" maxlength="6" required autocomplete="off" autofocus>
+                <form action="${pageContext.request.contextPath}/verify-reset-otp" method="post">
+                    <input type="hidden" name="action" value="verify">
+                    <div class="mb-3">
+                        <input type="text" name="otpCode" class="form-control otp-input"
+                               placeholder="------" maxlength="6" required autocomplete="off" autofocus>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Xác nhận</button>
+                </form>
+
+                <div class="text-center text-muted small mt-3" id="countdownBox">
+                    Gửi lại OTP sau <b id="countdown" class="text-primary">60</b> giây
                 </div>
-                <button type="submit" class="btn btn-success">Xác nhận</button>
-            </form>
 
-            <div class="countdown-text" id="countdownBox">
-                Gửi lại OTP sau <b id="countdown">60</b> giây
+                <form action="${pageContext.request.contextPath}/verify-reset-otp" method="post" id="resendForm">
+                    <input type="hidden" name="action" value="resend">
+                    <button type="submit" class="btn btn-secondary w-100 mt-2" id="btnResend" disabled>Gửi lại OTP</button>
+                </form>
+
+                <p class="text-center mt-3 small">
+                    <a href="${pageContext.request.contextPath}/forgot-password">Nhập lại email</a> |
+                    <a href="${pageContext.request.contextPath}/login">Quay lại đăng nhập</a>
+                </p>
             </div>
-
-            <form action="${pageContext.request.contextPath}/verify-reset-otp" method="post" id="resendForm">
-                <input type="hidden" name="action" value="resend">
-                <button type="submit" class="btn-resend" id="btnResend" disabled>Gửi lại OTP</button>
-            </form>
-
-            <p class="auth-footer" style="margin-top:20px;">
-                <a href="${pageContext.request.contextPath}/forgot-password">Nhập lại email</a> |
-                <a href="${pageContext.request.contextPath}/login">Quay lại đăng nhập</a>
-            </p>
         </div>
     </div>
 
